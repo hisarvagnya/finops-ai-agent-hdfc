@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDFC Bank FinOps AI Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='images/hdfc-logo.png') }}" alt="Company Logo" style="height: 5rem; width: auto;">
+    </div>
+
+    <div id="main-content-container" class="main-container">
+        <div style="text-align: center; margin-bottom: 1rem;">
+            <h1 style="font-size: 2.3rem; font-weight: 700; color: #ffffff; margin-bottom: 0;">HDFC Bank FinOps AI Agent</h1>
+            <p id="subtitle" style="color: #ffffffa0;">An AI-powered agent that analyzes your Multicloud spending and delivers smart insights for Cost Optimization</p>
+        </div>  
+
+        <div id="auth-container">
+            <button id="proceed-button">
+                Proceed to use Agent
+            </button>
+        </div>
+
+        <div id="chat-interface-container" class="chat-interface hidden">
+            <div id="chat-log" style="padding: 1rem;">
+            </div>
+            <div id="loading-indicator" class="hidden">
+                <div class="spinner"></div>
+                <p style="color: #6b7280; font-size: 0.875rem;">Agent is thinking...</p>
+            </div>
+            <div class="chat-input-container">
+                <form id="query-form" class="chat-form">
+                    <input type="text" id="query-input" name="query" placeholder="Ask the agent...">
+                    <button type="submit" id="submit-button" class="bg-indigo-600 text-white font-semibold p-2 rounded-full transition duration-200 hover:bg-indigo-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-up"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="right-side-section" class="right-side hidden">
+        <h3 style="font-size: 1rem; font-weight: 600; color: #ff0000;; margin-bottom: 0.5rem;">Need Inspiration?</h3>
+        <a href="prompts.html" target="_blank" class="prompts-link">
+            Sample Prompts
+        </a>
+    </div>
+    
+    <script>
+        // --- Configuration ---
+        const API_ENDPOINT = '/api/agent'; 
+        
+        let googleIdToken = null;
+        let currentSessionId = null; // Variable to store the session ID
+        
+        // --- DOM Element References ---
+        const authContainer = document.getElementById('auth-container');
+        const proceedButton = document.getElementById('proceed-button')
+        const mainContentContainer = document.getElementById('main-content-container');
+        const subtitle = document.getElementById('subtitle')
+        const chatInterfaceContainer = document.getElementById('chat-interface-container');
+        const chatLog = document.getElementById('chat-log');
+        const queryForm = document.getElementById('query-form');
+        const queryInput = document.getElementById('query-input');
+        const submitButton = document.getElementById('submit-button');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const rightSideSection = document.getElementById('right-side-section');
+
+        // Event Listener for proceed button
+        proceedButton.addEventListener('click', () => {
+            authContainer.classList.add('hidden');
+            chatInterfaceContainer.classList.remove('hidden');
+            loadingIndicator.classList.add('hidden'); 
+            subtitle.classList.add('hidden');
+            mainContentContainer.classList.remove('pt-60', 'pb-60');
+            mainContentContainer.classList.add('mt-12', 'chat-mode');
+            rightSideSection.classList.remove('hidden');
+            addMessage("Hello! How can I help you today?", "agent");
+        });
+
+        // --- Chat Logic ---
+        queryForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const query = queryInput.value.trim();
+            if (!query) return;
+
+            addMessage(query, "user");
+            queryInput.value = ''; // Clear input field
+            setLoadingState(true);
+
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        prompt: query,
+                        session_id: currentSessionId 
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || `Server responded with status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                currentSessionId = data.session_id;
+                addMessage(data.response || JSON.stringify(data, null, 2), "agent");
+
+            } catch (error) {
+                console.error('API Call Failed:', error);
+                addMessage(error.message, "agent", true);
+            } finally {
+                setLoadingState(false);
+            }
+        });
+
+        function setLoadingState(isLoading) {
+            loadingIndicator.classList.toggle('hidden', !isLoading);
+            submitButton.disabled = isLoading;
+            queryInput.disabled = isLoading;
+            if (isLoading) {
+                submitButton.classList.add('opacity-50');
+            } else {
+                submitButton.classList.remove('opacity-50');
+            }
+        }
+        
+        function addMessage(text, sender, isError = false) {
+            const messageWrapper = document.createElement('div');
+            const messageBubble = document.createElement('div');
+
+            if (sender === 'user') {
+                messageWrapper.classList.add('user-message-wrapper');
+                messageBubble.classList.add('user-message-bubble');
+            } else {
+                messageWrapper.classList.add('agent-message-wrapper');
+                if (isError) {
+                    messageBubble.classList.add('error-message-bubble');
+                } else {
+                    messageBubble.classList.add('agent-message-bubble');
+                }
+            }
+            
+            messageBubble.textContent = text;
+            messageWrapper.appendChild(messageBubble);
+            chatLog.appendChild(messageWrapper);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDFC FinOps AI Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_prompts.css') }}">
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="absolute top-4 left-4">
+        <img src="{{ url_for('static', filename='images/hdfc-logo.png') }}" alt="Company Logo" class="h-20 w-auto">
+    </div>
+    
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-4xl">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center" id="page-title">HDFC FinOps AI Agent: Suggested Prompts</h1>
+
+        <!-- Using a semantic list for the prompts -->
+        <ul class="space-y-6">
+            <!-- Prompt 1 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the GCP cloud consumption from GCP billing for usage between 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 2 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the GCP cloud consumption ( net cost) from GCP billing for usage between 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 3 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the top 5 GCP Services , ranked by their 'net cost' for date between 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 4 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the top 5 GCP Projects, ranked by their 'net cost' for date between 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 5 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the top 5 GCP SKUs, ranked by their 'net cost' for date between 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 1 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the Azure cloud consumption from Azure billing for date between 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 2 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the Azure cloud consumption (cost) from Azure billing for date between 1-Jan-2026 to 15-Jan-2026   </p>
+            </li>
+
+            <!-- Prompt 3 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the top 5 Azure 'Meter Category', ranked by their 'cost' for date between 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt  4-->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the top 5 Azure 'subscription name' ranked by their 'cost' for date between 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt  5-->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the top 5 Azure Meter (SKUs), ranked by their 'Cost' for date between 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 1 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the AWS cloud consumption from AWS billing for usage 1-Jan-2026 to 15-Jan-2026  </p>
+            </li>
+
+            <!-- Prompt 2 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share the AWS cloud consumption (line item unblended cost) from AWS billing for usage 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 3 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share top 5 product code with net unblended cost and pricing currency from AWS billing for usage 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 4 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share top 5 usage account names , account ID and net unblended cost from AWS billing for usage 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+            <!-- Prompt 5 -->
+            <li class="bg-gray-50 p-4 rounded-lg shadow-sm">
+                <p class="text-lg font-semibold text-gray-700"> Share top 5 distinct usage types , ranked by their net unblended cost with currency code from AWS billing for usage 1-Jan-2026 to 15-Jan-2026 </p>
+            </li>
+
+         
+        </ul>
+
+        <div class="mt-8 text-center text-gray-600 text-sm">
+            Explore the agent's capabilities with one of these sample prompts.
+        </div>
+    </div>
+</body>
+</html>

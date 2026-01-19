@@ -1,0 +1,24 @@
+Flask>=2.3.2
+gunicorn>=23.0.0
+google-auth>=2.17.3
+requests>=2.32.4
+flask-cors>=6.0.0
+
+#Werkzeug>=3.0.6 : 18Dec
+Werkzeug>=3.0.7
+google-api-python-client
+google-api-core>=2.25.1
+google-cloud-logging>=3.1.2
+google-cloud-storage>=1.32.0,<3.0.0
+
+google-adk==1.14.1
+google-cloud-aiplatform[adk, agent_engines]>=1.95.1
+deprecated 
+Flask[async]==3.1.2
+
+#29Sep : Cloud UI Fix
+uvicorn>=0.37.0
+asgiref>=3.9.2
+
+setuptools>=80.2.0
+#setuptools>=78.1.1 : 18Dec

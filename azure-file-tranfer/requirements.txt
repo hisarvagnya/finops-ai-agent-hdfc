@@ -1,0 +1,7 @@
+google-cloud-storage
+google-cloud-logging
+google-api-core
+azure-identity
+azure-storage-blob
+Flask
+google-cloud-secret-manager
